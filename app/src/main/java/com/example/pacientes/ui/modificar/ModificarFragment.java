@@ -1,10 +1,14 @@
 package com.example.pacientes.ui.modificar;
 
+import android.app.Activity;
 import android.app.DatePickerDialog;
+import android.content.Intent;
 import android.database.Cursor;
 import android.net.Uri;
 import android.opengl.Visibility;
 import android.os.Bundle;
+import android.os.Environment;
+import android.provider.MediaStore;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -30,11 +34,17 @@ import com.example.pacientes.R;
 
 import java.io.File;
 import java.io.IOException;
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Date;
 
 import SQL.SQLite;
 
 public class ModificarFragment extends Fragment {
+    //Constantes
+    public static final int REQUEST_TAKE_PHOTO = 1;
+
+    //Variables globales
     Spinner sexo, area, doctor;
     EditText ID, nombre, edad, estatura, fecha,peso;
     Button btnLimpiar, btnModificar, btnBuscar, btnFecha;
@@ -345,7 +355,29 @@ public class ModificarFragment extends Fragment {
 
 
 
-
+        //Tomar fotografia
+        iVPhoto.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent tomarfoto=new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+                //Se comprueba que se encontro una actividad para genera la foto
+                if(tomarfoto.resolveActivity(getActivity().getPackageManager())!=null){
+                    //se crea el archivo donde se guardara la imagen
+                    File photoFile = null;
+                    try {
+                        photoFile = createImageFile();
+                    } catch (IOException ex){
+                        Toast.makeText(getContext(), "Ocurrio un error mientras se generaba el archivo", Toast.LENGTH_SHORT).show();
+                    }
+                    //se comprueba que la imagen fue creada correctamente
+                    if(photoFile != null){
+                        uriPhoto = FileProvider.getUriForFile(getContext(),"com.example.pacientes",photoFile);
+                        tomarfoto.putExtra(MediaStore.EXTRA_OUTPUT, uriPhoto);
+                        startActivityForResult(tomarfoto,REQUEST_TAKE_PHOTO);
+                    }
+                }
+            }
+        });
 
 
 
@@ -477,6 +509,35 @@ public class ModificarFragment extends Fragment {
         }catch (Exception ex){
             Toast.makeText(getContext(), "Ocurrio un error al cargar la imagen", Toast.LENGTH_SHORT).show();
             Log.d("Cargar Imagen","Error al cargar imagen "+imagen+"\nMensaje: "+ex.getMessage()+"\nCausa: "+ex.getCause());
+            imagen="";
+        }
+    }
+    //Crear archivo de imagen
+    private File createImageFile() throws IOException {
+        // Create an image file name
+        String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
+        String imageFileName = "JPEG_" + timeStamp + "_";
+        File storageDir = getActivity().getExternalFilesDir(Environment.DIRECTORY_PICTURES);
+        File image = File.createTempFile(
+                imageFileName,  /* prefix */
+                ".jpg",         /* suffix */
+                storageDir      /* directory */
+        );
+
+        // Save a file: path for use with ACTION_VIEW intents
+        imagen = image.getAbsolutePath();
+        return image;
+    }
+    //Obtener foto y mostrarla en el imageView
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if(requestCode == REQUEST_TAKE_PHOTO && resultCode == Activity.RESULT_OK){
+            iVPhoto.setImageURI(uriPhoto);
+            Toast.makeText(getContext(), "Foto guardada en "+ imagen, Toast.LENGTH_SHORT).show();
+        }else if(requestCode == REQUEST_TAKE_PHOTO){
+            Toast.makeText(getContext(), "Ocurrio un error al guardar la foto", Toast.LENGTH_SHORT).show();
+            imagen = "";
         }
     }
 }
