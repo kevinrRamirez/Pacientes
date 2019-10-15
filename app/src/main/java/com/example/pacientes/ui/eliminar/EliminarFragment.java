@@ -2,7 +2,6 @@ package com.example.pacientes.ui.eliminar;
 
 import android.content.DialogInterface;
 import android.database.Cursor;
-import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
@@ -110,8 +109,8 @@ public class EliminarFragment extends Fragment {
                             }
                         }
 
-                        View dialogView=LayoutInflater.from(getContext()).inflate(R.layout.dialog_eliminar,null);
-                        ((TextView)dialogView.findViewById(R.id.dialogEliminarTvDatos)).setText("¿ Desea eliminar el registro? \n" +
+                        View dialogView=LayoutInflater.from(getContext()).inflate(R.layout.dialog_paciente,null);
+                        ((TextView)dialogView.findViewById(R.id.dialogPacienteTvDatos)).setText("¿ Desea eliminar el registro? \n" +
                                 "ID:              ["+id.getText()+" ]\n" +
                                 "Área:         ["+g1+"]\n"+
                                 "Doctor:     ["+g2+"]\n"+
@@ -121,20 +120,9 @@ public class EliminarFragment extends Fragment {
                                 "Edad:        ["+g6+" Años]\n"+
                                 "Estatura:   ["+g7+" Cm]\n"+
                                 "Peso:         ["+g8+ " Kg]\n");
-                        ImageView image=dialogView.findViewById(R.id.dialogEliminarIVFoto);
+                        ImageView image=dialogView.findViewById(R.id.dialogPacienteIVFoto);
                         cargarImagen(g9,image);
                         dialogo1.setTitle("Importante");
-                        /*dialogo1.setMessage("¿ Desea eliminar el registro? \n" +
-                                "ID:              ["+id.getText()+" ]\n" +
-                                "Área:         ["+g1+"]\n"+
-                                "Doctor:     ["+g2+"]\n"+
-                                "Nombre:   [ "+g3+"]\n"+
-                                "Sexo:        ["+g4+"]\n"+
-                                "F. Ingreso: ["+g5+"]\n"+
-                                "Edad:        ["+g6+" Años]\n"+
-                                "Estatura:   ["+g7+" Cm]\n"+
-                                "Peso:         ["+g8+ " Kg]\n"
-                        );*/
                         dialogo1.setView(dialogView);
                         dialogo1.setCancelable(false);
                         dialogo1.setPositiveButton("Confirmar", new DialogInterface.OnClickListener() {

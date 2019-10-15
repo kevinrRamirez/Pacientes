@@ -86,6 +86,16 @@ public class SQLite {
         return listData;
     }
 
+    public ArrayList<String> getImagenes(Cursor cursor){
+        ArrayList<String> listData = new ArrayList<>();
+        if (cursor.moveToFirst()){
+            do {
+                listData.add(cursor.getString(9));
+            }while (cursor.moveToNext());
+        }
+        return listData;
+    }
+
     public ArrayList<String> getID(Cursor cursor) {
         ArrayList<String> listData = new ArrayList<>();
         String item = "";

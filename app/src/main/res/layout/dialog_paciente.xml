@@ -7,7 +7,7 @@
     android:layout_height="match_parent">
 
     <TextView
-        android:id="@+id/dialogEliminarTvDatos"
+        android:id="@+id/dialogPacienteTvDatos"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_margin="8dp"
@@ -19,14 +19,14 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <ImageView
-        android:id="@+id/dialogEliminarIVFoto"
+        android:id="@+id/dialogPacienteIVFoto"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_margin="8dp"
         android:scaleType="centerCrop"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/dialogEliminarTvDatos"
+        app:layout_constraintStart_toEndOf="@+id/dialogPacienteTvDatos"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@mipmap/avatar" />
 </androidx.constraintlayout.widget.ConstraintLayout>
