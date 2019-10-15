@@ -2,12 +2,16 @@ package com.example.pacientes.ui.eliminar;
 
 import android.content.DialogInterface;
 import android.database.Cursor;
+import android.graphics.drawable.Drawable;
+import android.net.Uri;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -15,11 +19,14 @@ import android.widget.Toast;
 import androidx.annotation.Nullable;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
+import androidx.core.content.FileProvider;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 
 import com.example.pacientes.R;
+
+import java.io.File;
 
 import SQL.SQLite;
 
@@ -96,14 +103,28 @@ public class EliminarFragment extends Fragment {
                                         g6 = cursor.getString(6);
                                         g7 = cursor.getString(7);
                                         g8 = cursor.getString(8);
+                                        g9 = cursor.getString(9);
 
                                     } while (cursor.moveToNext());
                                 }
                             }
                         }
 
+                        View dialogView=LayoutInflater.from(getContext()).inflate(R.layout.dialog_eliminar,null);
+                        ((TextView)dialogView.findViewById(R.id.dialogEliminarTvDatos)).setText("¿ Desea eliminar el registro? \n" +
+                                "ID:              ["+id.getText()+" ]\n" +
+                                "Área:         ["+g1+"]\n"+
+                                "Doctor:     ["+g2+"]\n"+
+                                "Nombre:   [ "+g3+"]\n"+
+                                "Sexo:        ["+g4+"]\n"+
+                                "F. Ingreso: ["+g5+"]\n"+
+                                "Edad:        ["+g6+" Años]\n"+
+                                "Estatura:   ["+g7+" Cm]\n"+
+                                "Peso:         ["+g8+ " Kg]\n");
+                        ImageView image=dialogView.findViewById(R.id.dialogEliminarIVFoto);
+                        cargarImagen(g9,image);
                         dialogo1.setTitle("Importante");
-                        dialogo1.setMessage("¿ Desea eliminar el registro? \n" +
+                        /*dialogo1.setMessage("¿ Desea eliminar el registro? \n" +
                                 "ID:              ["+id.getText()+" ]\n" +
                                 "Área:         ["+g1+"]\n"+
                                 "Doctor:     ["+g2+"]\n"+
@@ -113,7 +134,8 @@ public class EliminarFragment extends Fragment {
                                 "Edad:        ["+g6+" Años]\n"+
                                 "Estatura:   ["+g7+" Cm]\n"+
                                 "Peso:         ["+g8+ " Kg]\n"
-                        );
+                        );*/
+                        dialogo1.setView(dialogView);
                         dialogo1.setCancelable(false);
                         dialogo1.setPositiveButton("Confirmar", new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialogo1, int id) {
@@ -145,6 +167,18 @@ public class EliminarFragment extends Fragment {
         sqlite.Eliminar(id.getText());
         Toast.makeText(getContext(), "Registro Eliminado", Toast.LENGTH_SHORT).show();
 
+    }
+
+    //cargar imagen
+    public void cargarImagen(String imagen, ImageView iv){
+        try{
+            File filePhoto=new File(imagen);
+            Uri uriPhoto = FileProvider.getUriForFile(getContext(),"com.example.pacientes",filePhoto);
+            iv.setImageURI(uriPhoto);
+        }catch (Exception ex){
+            Toast.makeText(getContext(), "Ocurrio un error al cargar la imagen", Toast.LENGTH_SHORT).show();
+            Log.d("Cargar Imagen","Error al cargar imagen: "+imagen+"\nMensaje: "+ex.getMessage()+"\nCausa: "+ex.getCause());
+        }
     }
 }
 
