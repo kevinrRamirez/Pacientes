@@ -2,7 +2,10 @@ package com.example.pacientes.ui.modificar;
 
 import android.app.DatePickerDialog;
 import android.database.Cursor;
+import android.net.Uri;
+import android.opengl.Visibility;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,18 +14,22 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.annotation.NonNull;
+import androidx.core.content.FileProvider;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 
 import com.example.pacientes.R;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.Calendar;
 
 import SQL.SQLite;
@@ -31,6 +38,8 @@ public class ModificarFragment extends Fragment {
     Spinner sexo, area, doctor;
     EditText ID, nombre, edad, estatura, fecha,peso;
     Button btnLimpiar, btnModificar, btnBuscar, btnFecha;
+    ImageView iVPhoto;
+    Uri uriPhoto;
     public SQLite sqlite;
     String a, b, sex, imagen="";
     private int dia, mes,ano;
@@ -65,6 +74,7 @@ public class ModificarFragment extends Fragment {
         edad = root.findViewById(R.id.edadModificar);
         peso = root.findViewById(R.id.pesoModificar);
         estatura = root.findViewById(R.id.estaturaModificar);
+        iVPhoto = root.findViewById(R.id.ivFotoModificar);
 
         btnBuscar = root.findViewById(R.id.btnBuscar);
         btnLimpiar = root.findViewById(R.id.btnLimpiar);
@@ -80,6 +90,7 @@ public class ModificarFragment extends Fragment {
         fecha.setVisibility(View.INVISIBLE);
         edad.setVisibility(View.INVISIBLE);
         estatura.setVisibility(View.INVISIBLE);
+        iVPhoto.setVisibility(View.GONE);
         btnModificar.setVisibility(View.INVISIBLE);
         btnFecha.setVisibility(View.INVISIBLE);
         sqlite = new SQLite(getContext());
@@ -353,12 +364,14 @@ public class ModificarFragment extends Fragment {
                         edad.setVisibility(View.VISIBLE);
                         estatura.setVisibility(View.VISIBLE);
                         peso.setVisibility(View.VISIBLE);
+                        iVPhoto.setVisibility(View.VISIBLE);
                         btnModificar.setVisibility(View.VISIBLE);
                         btnFecha.setVisibility(View.VISIBLE);
 
+
                         int f = Integer.parseInt(ID.getText().toString());
                         Cursor cursor = sqlite.getCant(f);
-                        String g1 = null, g2 = null, g3 = null, g4 = null, g5 = null, g6 = null, g7 = null, g8 = null;
+                        String g1 = null, g2 = null, g3 = null, g4 = null, g5 = null, g6 = null, g7 = null, g8 = null, g9 = null;
                         if (cursor.moveToFirst()) {
                             do {
 
@@ -371,6 +384,7 @@ public class ModificarFragment extends Fragment {
                                 g6 = cursor.getString(6);
                                 g7 = cursor.getString(7);
                                 g8 = cursor.getString(8);
+                                g9 = cursor.getString(9);
 
                             } while (cursor.moveToNext());
                         }
@@ -380,7 +394,8 @@ public class ModificarFragment extends Fragment {
                         edad.setText(g6.toString());
                         estatura.setText(g7.toString());
                         peso.setText(g8.toString());
-
+                        imagen=g9;
+                        cargarImagen();
 
                     } else
                         Toast.makeText(getContext(), "Error: No existe ese ID" +
@@ -452,5 +467,16 @@ public class ModificarFragment extends Fragment {
         return root;
 
 
+    }
+    //cargar imagen
+    public void cargarImagen(){
+        try{
+            File filePhoto=new File(imagen);
+            uriPhoto = FileProvider.getUriForFile(getContext(),"com.example.pacientes",filePhoto);
+            iVPhoto.setImageURI(uriPhoto);
+        }catch (Exception ex){
+            Toast.makeText(getContext(), "Ocurrio un error al cargar la imagen", Toast.LENGTH_SHORT).show();
+            Log.d("Cargar Imagen","Error al cargar imagen "+imagen+"\nMensaje: "+ex.getMessage()+"\nCausa: "+ex.getCause());
+        }
     }
 }

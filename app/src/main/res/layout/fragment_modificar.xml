@@ -45,6 +45,11 @@
 
             </GridLayout>
 
+            <ImageView
+                android:id="@+id/ivFotoModificar"
+                android:layout_width="match_parent"
+                android:layout_height="210dp"
+                app:srcCompat="@mipmap/avatar" />
 
             <LinearLayout
                 android:layout_width="match_parent"

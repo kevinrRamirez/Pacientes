@@ -444,7 +444,7 @@ public class CrearFragment extends Fragment {
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         if(requestCode == REQUEST_TAKE_PHOTO && resultCode == Activity.RESULT_OK){
             iVFoto.setImageURI(photoURI);
-            imagen=photoURI.getPath();
+            imagen=currentPhotoPath;
             Toast.makeText(getContext(), "Foto guardada en "+ imagen, Toast.LENGTH_SHORT).show();
         }
     }
