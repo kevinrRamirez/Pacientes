@@ -32,7 +32,7 @@ public class ModificarFragment extends Fragment {
     EditText ID, nombre, edad, estatura, fecha,peso;
     Button btnLimpiar, btnModificar, btnBuscar, btnFecha;
     public SQLite sqlite;
-    String a, b, sex;
+    String a, b, sex, imagen="";
     private int dia, mes,ano;
 
     @Override
@@ -403,7 +403,8 @@ public class ModificarFragment extends Fragment {
                         !peso.getText().toString().equals("") &&
                         !peso.getText().toString().equals("") &&
                         !peso.getText().toString().equals("") &&
-                        !fecha.getText().toString().equals("")) {
+                        !fecha.getText().toString().equals("") &&
+                        !imagen.equals("")) {
 
                     //dentro de if
                     Toast.makeText(getContext(), a + " " + b + " " +
@@ -422,7 +423,9 @@ public class ModificarFragment extends Fragment {
                             fecha.getText().toString(),
                             edad.getText().toString().toUpperCase(),
                             estatura.getText().toString().toUpperCase(),
-                            peso.getText().toString().toUpperCase());
+                            peso.getText().toString().toUpperCase(),
+                            imagen
+                    );
 
                     //Dentro if agregar registro
                     Toast.makeText(getContext(), "REGISTRO AÑADIDO", Toast.LENGTH_SHORT).show();

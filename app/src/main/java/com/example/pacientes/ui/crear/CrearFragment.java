@@ -1,7 +1,12 @@
 package com.example.pacientes.ui.crear;
 
+import android.app.Activity;
 import android.app.DatePickerDialog;
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
+import android.os.Environment;
+import android.provider.MediaStore;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,12 +15,14 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.annotation.NonNull;
+import androidx.core.content.FileProvider;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
@@ -23,7 +30,11 @@ import androidx.lifecycle.ViewModelProviders;
 
 import com.example.pacientes.R;
 
+import java.io.File;
+import java.io.IOException;
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Date;
 
 import SQL.SQLite;
 
@@ -32,11 +43,16 @@ public class CrearFragment extends Fragment {
     private CrearViewModel createViewModel;
     private int dia, mes,ano;
 
+    //Constantes
+    public static final int REQUEST_TAKE_PHOTO = 1;
+
     //Variables globales
     Spinner area, doctor, sexo;
     EditText nombre, edad, estatura, fecha, id, peso;
-    String a,b,sex;
+    String a,b,sex,imagen="",currentPhotoPath;
     Button btnGuardar, btnLimpiar, btnFecha;
+    ImageView iVFoto;
+    Uri photoURI;
     public SQLite sqlite;
 
 
@@ -70,6 +86,7 @@ public class CrearFragment extends Fragment {
         btnGuardar =root.findViewById(R.id.btn_crear_guardar);
         btnLimpiar =root.findViewById(R.id.btn_crear_limpiar);
         btnFecha = root.findViewById(R.id.btnDateCrear);
+        iVFoto = root.findViewById(R.id.ivFotoCrear);
 
         //conexion con base de datos
         sqlite = new SQLite(getContext());
@@ -321,6 +338,30 @@ public class CrearFragment extends Fragment {
             }
         });
 
+        //Tomar fotografia
+        iVFoto.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent tomarfoto=new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+                //Se comprueba que se encontro una actividad para genera la foto
+                if(tomarfoto.resolveActivity(getActivity().getPackageManager())!=null){
+                    //se crea el archivo donde se guardara la imagen
+                    File photoFile = null;
+                    try {
+                        photoFile = createImageFile();
+                    } catch (IOException ex){
+                        Toast.makeText(getContext(), "Ocurrio un error mientras se generaba el archivo", Toast.LENGTH_SHORT).show();
+                    }
+                    //se comprueba que la imagen fue creada correctamente
+                    if(photoFile != null){
+                        photoURI = FileProvider.getUriForFile(getContext(),"com.example.pacientes",photoFile);
+                        tomarfoto.putExtra(MediaStore.EXTRA_OUTPUT, photoURI);
+                        startActivityForResult(tomarfoto,REQUEST_TAKE_PHOTO);
+                    }
+                }
+            }
+        });
+
         //Guardar registro
         btnGuardar.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -330,7 +371,8 @@ public class CrearFragment extends Fragment {
                         !edad.getText().toString().equals("") &&
                         !estatura.getText().toString().equals("") &&
                         !peso.getText().toString().equals("") &&
-                        !fecha.getText().toString().equals("")){
+                        !fecha.getText().toString().equals("") &&
+                        !imagen.equals("")){
                     //dentro de if
                     Toast.makeText(getContext(), a+" "+b+" "+
                             nombre.getText().toString().toUpperCase()+" "+
@@ -348,7 +390,8 @@ public class CrearFragment extends Fragment {
                             fecha.getText().toString(),
                             edad.getText().toString().toUpperCase(),
                             estatura.getText().toString().toUpperCase(),
-                            peso.getText().toString().toUpperCase()
+                            peso.getText().toString().toUpperCase(),
+                            imagen
                             )){
                         //Dentro if agregar registro
                         Toast.makeText(getContext(), "REGISTRO AÑADIDO",Toast.LENGTH_SHORT).show();
@@ -376,5 +419,33 @@ public class CrearFragment extends Fragment {
             }
         });
         return root;
+    }
+
+    //Crear archivo de imagen
+    private File createImageFile() throws IOException {
+        // Create an image file name
+        String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
+        String imageFileName = "JPEG_" + timeStamp + "_";
+        File storageDir = getActivity().getExternalFilesDir(Environment.DIRECTORY_PICTURES);
+        File image = File.createTempFile(
+                imageFileName,  /* prefix */
+                ".jpg",         /* suffix */
+                storageDir      /* directory */
+        );
+
+        // Save a file: path for use with ACTION_VIEW intents
+        currentPhotoPath = image.getAbsolutePath();
+        return image;
+    }
+
+    //Obtener foto y mostrarla en el imageView
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if(requestCode == REQUEST_TAKE_PHOTO && resultCode == Activity.RESULT_OK){
+            iVFoto.setImageURI(photoURI);
+            imagen=photoURI.getPath();
+            Toast.makeText(getContext(), "Foto guardada en "+ imagen, Toast.LENGTH_SHORT).show();
+        }
     }
 }

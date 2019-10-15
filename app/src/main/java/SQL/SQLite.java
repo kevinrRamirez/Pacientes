@@ -41,7 +41,8 @@ public class SQLite {
             String date,
             String age,
             String height,
-            String weight) {
+            String weight,
+            String image) {
         ContentValues cv = new ContentValues(); //Equivalente a putExtra
         cv.put("ID_PACIENTE", id);
         cv.put("AREA", area);
@@ -52,6 +53,7 @@ public class SQLite {
         cv.put("EDAD", age);
         cv.put("ESTATURA", height);
         cv.put("PESO", weight);
+        cv.put("IMAGEN", image);
         return (db.insert(
                 "PACIENTES",
                 null, cv) != -1) ? true : false;
@@ -106,7 +108,8 @@ public class SQLite {
             String date,
             String age,
             String height,
-            String weight
+            String weight,
+            String image
     ) {
         ContentValues cv = new ContentValues(); //Equivalente a putExtra
         cv.put("ID_PACIENTE", id);
@@ -118,6 +121,7 @@ public class SQLite {
         cv.put("EDAD", age);
         cv.put("ESTATURA", height);
         cv.put("PESO", weight);
+        cv.put("IMAGEN", image);
         int cant = db.update(
                 "PACIENTES",
                 cv,

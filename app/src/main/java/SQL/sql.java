@@ -6,7 +6,7 @@ import android.database.sqlite.SQLiteOpenHelper;
 
 public class sql extends SQLiteOpenHelper {
     private static final String database = "pacientes";
-    private static final int VERSION = 1;
+    private static final int VERSION = 2;
 
     private final String tPacientes = "CREATE TABLE PACIENTES (" +
             "ID_PACIENTE INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL," +
@@ -17,7 +17,9 @@ public class sql extends SQLiteOpenHelper {
             "FECHA_ING TEXT NOT NULL," +
             "EDAD TEXT NOT NULL," +
             "ESTATURA TEXT NOT NULL," +
-            "PESO TEXT NOT NULL);";
+            "PESO TEXT NOT NULL," +
+            "IMAGEN TEXT NOT NULL);";
+
 
     //Constructor
     public sql(Context context){
