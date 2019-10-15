@@ -428,7 +428,14 @@ public class ModificarFragment extends Fragment {
                         peso.setText(g8.toString());
                         imagen=g9;
                         cargarImagen();
-
+                        int pos=buscarPosicion(R.array.opciones,g1);
+                        if(pos!=-1){
+                            area.setSelection(pos);
+                        }
+                        pos= buscarPosicion(R.array.sx,g4);
+                        if(pos!=-1) {
+                            sexo.setSelection(pos);
+                        }
                     } else
                         Toast.makeText(getContext(), "Error: No existe ese ID" +
                                 "", Toast.LENGTH_SHORT).show();
@@ -500,6 +507,22 @@ public class ModificarFragment extends Fragment {
 
 
     }
+    //buscar elemento en arreglo
+    public int buscarPosicion(int arreglo,String elemento){
+        int posicion=-1;
+        elemento = elemento.toUpperCase();
+        String tem;
+        String elementos[]=getResources().getStringArray(arreglo);
+        for (int i=0; i<elementos.length;i++){
+            tem=elementos[i].toUpperCase();
+            if(tem.equals(elemento)){
+                posicion=i;
+                break;
+            }
+        }
+        return posicion;
+    }
+
     //cargar imagen
     public void cargarImagen(){
         try{
