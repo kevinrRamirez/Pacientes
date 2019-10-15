@@ -1,0 +1,53 @@
+<resources>
+    <string name="app_name">Pacientes</string>
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="nav_header_title">Android Studio</string>
+    <string name="nav_header_subtitle">android.studio@android.com</string>
+    <string name="nav_header_desc">Navigation header</string>
+    <string name="action_settings">Settings</string>
+
+    <string name="menu_home">Home</string>
+    <string name="menu_crear">Registro </string>
+    <string name="menu_eliminiar">Eliminar </string>
+    <string name="menu_creditos">creditos</string>
+    <string name="menu_modificar">Modificar </string>
+    <string name="menu_listar">Lista </string>
+    <string name="menu_buscar">Buscar </string>
+
+
+    <string name="s_id">id</string>
+    <string name="s_nombre">Nombre</string>
+    <string name="s_clase">Clase</string>
+    <string name="s_especie">Especie</string>
+    <string name="s_fecha">Fecha Ingreso</string>
+    <string name="s_sexo">Sexo</string>
+    <string name="s_edad">Edad</string>
+    <string name="s_estaura">Estatura</string>
+    <string name="s_peso">Peso</string>
+    <string name="s_atras">Atras</string>
+    <string name="s_guardar">Guardar</string>
+    <string name="s_limpiar">Limpiar</string>
+    <string name="s_buscar">Buscar</string>
+    <string name="s_home">Hospital</string>
+
+    <string name="s_crear">Registro Paciente</string>
+    <string name="s_listar">Listar Paciente </string>
+    <string name="s_modificar">Modificar Paciente </string>
+    <string name="s_eliminar">Eliminar Paciente</string>
+
+    <string name="Creditos">Creditos</string>
+    <string name="David">David de Jesus Vazquez Salas</string>
+    <string name="Raul">Osvaldo Raul Camacho Mendizabal</string>
+    <string name="Mario">Mario Alberto Serrano Diaz</string>
+
+
+    <string name="descripcion">
+        Emergencias Hospital
+
+    </string>
+    <string name="descripcionh">
+        Esta es una aplicacion acerca de un CRUD de pacientes
+        de un hospital.
+    </string>
+</resources>

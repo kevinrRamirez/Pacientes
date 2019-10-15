@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/mobile_navigation"
+    app:startDestination="@+id/nav_home">
+
+    <fragment
+        android:id="@+id/nav_home"
+        android:name="com.example.pacientes.ui.home.HomeFragment"
+        android:label="@string/menu_home"
+        tools:layout="@layout/fragment_home" />
+
+    <fragment
+        android:id="@+id/nav_crear"
+        android:name="com.example.pacientes.ui.crear.CrearFragment"
+        android:label="@string/menu_crear"
+        tools:layout="@layout/fragment_crear" />
+
+    <fragment
+        android:id="@+id/nav_eliminar"
+        android:name="com.example.pacientes.ui.eliminar.EliminarFragment"
+        android:label="@string/menu_eliminiar"
+        tools:layout="@layout/fragment_eliminar" />
+
+    <fragment
+        android:id="@+id/nav_creditos"
+        android:name="com.example.pacientes.ui.credits.CreditsFragment"
+        android:label="@string/menu_creditos"
+        tools:layout="@layout/fragment_credits" />
+
+    <fragment
+        android:id="@+id/nav_modificar"
+        android:name="com.example.pacientes.ui.modificar.ModificarFragment"
+        android:label="@string/menu_modificar"
+        tools:layout="@layout/fragment_modificar" />
+
+    <fragment
+        android:id="@+id/nav_listar"
+        android:name="com.example.pacientes.ui.listar.ListarFragment"
+        android:label="@string/menu_listar"
+        tools:layout="@layout/fragment_listar" />
+</navigation>
