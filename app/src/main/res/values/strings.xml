@@ -37,10 +37,21 @@
     <string name="s_eliminar">Eliminar Paciente</string>
 
     <string name="Creditos">Creditos</string>
+
     <string name="David">David de Jesus Vazquez Salas</string>
     <string name="Raul">Osvaldo Raul Camacho Mendizabal</string>
     <string name="Mario">Mario Alberto Serrano Diaz</string>
-
+    <string name="Profesor">Profesor: </string>
+    <string name="Rocio">M. en C. Rocio Elizabeth Pulido Alba </string>
+    <string name="alumnos">Alumnos: </string>
+    <string name="materia">Materia: </string>
+    <string name="desarrollo">Desarollo movil </string>
+    <string name="ings">Ing. en Software</string>
+    <string name="carrera">Carrera: </string>
+    <string name="ciclo">Ciclo escolar 2019B </string>
+    <string name="semestre">Semestre: 9 </string>
+    <string name="Grupo">grupo: S9 </string>
+    <string name="uaem">Unidad Academica Profesional Tianguistenco</string>
 
     <string name="descripcion">
         Emergencias Hospital

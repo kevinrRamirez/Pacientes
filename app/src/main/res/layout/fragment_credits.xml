@@ -19,8 +19,23 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="270dp"
+            android:layout_height="wrap_content"
             android:orientation="vertical">
+
+            <ImageView
+                android:id="@+id/imageView2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:scaleType="centerInside"
+                app:srcCompat="@mipmap/pleca" />
+
+            <TextView
+                android:id="@+id/textView7"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="@string/uaem"
+                android:textStyle="bold" />
 
             <TextView
                 android:id="@+id/creditos"
@@ -32,33 +47,109 @@
                 android:textSize="36sp"
                 android:textStyle="normal|bold" />
 
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="398dp"
+            android:layout_height="205dp"
+            android:orientation="vertical">
+
             <TextView
-                android:id="@+id/textView3"
+                android:id="@+id/textView15"
                 android:layout_width="match_parent"
-                android:layout_height="57dp"
-                android:foregroundGravity="center_vertical"
-                android:gravity="center"
-                android:text="@string/Mario"
-                android:textSize="22sp"
+                android:layout_height="wrap_content"
+                android:text="@string/alumnos"
                 android:textStyle="bold" />
 
             <TextView
-                android:id="@+id/textView4"
+                android:id="@+id/textView9"
                 android:layout_width="match_parent"
-                android:layout_height="57dp"
-                android:gravity="center"
-                android:text="@string/Raul"
-                android:textSize="22sp"
+                android:layout_height="wrap_content"
+                android:text="@string/Mario" />
+
+            <TextView
+                android:id="@+id/textView10"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/Raul" />
+
+            <TextView
+                android:id="@+id/textView11"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/David" />
+
+            <TextView
+                android:id="@+id/textView16"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/Profesor"
                 android:textStyle="bold" />
 
             <TextView
-                android:id="@+id/textView5"
+                android:id="@+id/textView17"
                 android:layout_width="match_parent"
-                android:layout_height="57dp"
+                android:layout_height="wrap_content"
+                android:text="@string/Rocio" />
+
+            <TextView
+                android:id="@+id/textView18"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/carrera"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/textView19"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/ings" />
+
+            <TextView
+                android:id="@+id/textView20"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/materia"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/textView21"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/desarrollo" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="397dp"
+            android:layout_height="33dp">
+
+            <TextView
+                android:id="@+id/textView23"
+                android:layout_width="216dp"
+                android:layout_height="wrap_content"
+                android:text="@string/semestre" />
+
+            <TextView
+                android:id="@+id/textView24"
+                android:layout_width="182dp"
+                android:layout_height="wrap_content"
+                android:text="@string/Grupo" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/textView25"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
                 android:gravity="center"
-                android:text="@string/David"
-                android:textSize="22sp"
+                android:text="@string/ciclo"
                 android:textStyle="bold" />
         </LinearLayout>
+
     </LinearLayout>
+
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -13,11 +13,12 @@
 
         <TextView
             android:id="@+id/text_send"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
             android:paddingBottom="10dp"
             android:textSize="20sp"
-            tools:text="holas" />
+            tools:text="holas"
+            tools:visibility="gone" />
 
         <ListView
             android:id="@+id/lista"
